@@ -163,7 +163,7 @@ This report is automatically generated and delivered via Power Automate.
     var accepted=[], rejected=[], pending=[], taskData=[];
     tasks.forEach(function(t) {
       var v   = document.getElementById(t.id) ? document.getElementById(t.id).value : '';
-      var entry = { date:t.date, project:t.project, task:t.task, hours:t.hours, status:v||'Pending' };
+      var entry = { date: t.date, project: t.project, task: t.task, hours: parseFloat(t.hours) || 0, status: v || 'Pending' };
       taskData.push(entry);
       if      (v==='Accepted') accepted.push(entry);
       else if (v==='Rejected') rejected.push(entry);
