@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8"><title>Weekly Timesheet Summary</title></head>
+<body>
+<table width="100%" cellpadding="0" cellspacing="0" style="background:#f4f6f9;padding:30px 0;font-family:Segoe UI,Arial,sans-serif;">
+<tr>
+<td align="center">
+<table width="1100" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #dbe3ea;">
+
+<!-- HEADER -->
+<tr>
+<td style="background:#1F4E79;padding:24px 32px;">
+<h2 style="margin:0;color:#ffffff;font-size:26px;font-weight:600;">Weekly Timesheet Summary</h2>
+<p style="margin:8px 0 0 0;color:#dbe7f3;font-size:14px;">Automated Weekly Employee Timesheet Report</p>
+</td>
+</tr>
+
+<!-- BODY -->
+<tr>
+<td style="padding:30px;">
+<p style="margin:0 0 14px 0;font-size:15px;color:#374151;">Hi Ankit,</p>
+<p style="margin:0 0 24px 0;font-size:15px;line-height:1.6;color:#4b5563;">
+Please find below the weekly timesheet summary. Please review each task and select your approval decision, then click <strong>Submit Review</strong>.
+</p>
+
+<!-- SNAPSHOT -->
+<table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:24px;">
+<tr>
+<td style="background:#eff6ff;border:1px solid #bfdbfe;padding:14px 18px;color:#1d4ed8;font-size:14px;font-weight:600;">
+Weekly Productivity Snapshot — Manager Review Required
+</td>
+</tr>
+</table>
+
+<!-- DATA TABLE -->
+<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #d1d5db;">
+<thead>
+<tr style="background:#1F4E79;">
+<th style="padding:14px;color:#ffffff;text-align:left;font-size:14px;border:1px solid #315f8a;">Employee Name</th>
+<th style="padding:14px;color:#ffffff;text-align:left;font-size:14px;border:1px solid #315f8a;">Date</th>
+<th style="padding:14px;color:#ffffff;text-align:left;font-size:14px;border:1px solid #315f8a;">Project Name</th>
+<th style="padding:14px;color:#ffffff;text-align:left;font-size:14px;border:1px solid #315f8a;">Role</th>
+<th style="padding:14px;color:#ffffff;text-align:left;font-size:14px;border:1px solid #315f8a;">Task Description</th>
+<th style="padding:14px;color:#ffffff;text-align:center;font-size:14px;border:1px solid #315f8a;">Hours</th>
+<th style="padding:14px;color:#ffffff;text-align:center;font-size:14px;border:1px solid #315f8a;">Billable</th>
+<th style="padding:14px;color:#ffffff;text-align:center;font-size:14px;border:1px solid #315f8a;background:#2563a8;min-width:160px;">Manager Review</th>
+</tr>
+</thead>
+<tbody>
+
+<!-- ROW 1 -->
+<tr style="background:#ffffff;" onmouseover="this.style.background='#f8faff'" onmouseout="this.style.background='#ffffff'">
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Dinky Khandelwal</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">5/7/2026</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Sales and Marketing</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;"></td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Fully Updated Philly 8th May deck as per the feedbacks and other changes</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">3</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">True</td>
+<td style="padding:10px 14px;text-align:center;border:1px solid #e5e7eb;background:#f8faff;">
+<select id="r1" onchange="styleSelect(this)" style="width:140px;padding:7px 10px;border:1.5px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:Segoe UI,Arial,sans-serif;cursor:pointer;background:#fff;color:#374151;">
+<option value="">— Select —</option>
+<option value="Accepted">✓ Accept</option>
+<option value="Rejected">✗ Reject</option>
+</select>
+</td>
+</tr>
+
+<!-- ROW 2 -->
+<tr style="background:#f9fafb;" onmouseover="this.style.background='#f0f5ff'" onmouseout="this.style.background='#f9fafb'">
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Dinky Khandelwal</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">5/7/2026</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Sales and Marketing</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;"></td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Created demo's for all three Scenarios shared by Himanshu on Azure MS Foundry along with Telemetry and SK</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">5</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">True</td>
+<td style="padding:10px 14px;text-align:center;border:1px solid #e5e7eb;background:#f0f5ff;">
+<select id="r2" onchange="styleSelect(this)" style="width:140px;padding:7px 10px;border:1.5px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:Segoe UI,Arial,sans-serif;cursor:pointer;background:#fff;color:#374151;">
+<option value="">— Select —</option>
+<option value="Accepted">✓ Accept</option>
+<option value="Rejected">✗ Reject</option>
+</select>
+</td>
+</tr>
+
+<!-- ROW 3 -->
+<tr style="background:#ffffff;" onmouseover="this.style.background='#f8faff'" onmouseout="this.style.background='#ffffff'">
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Dinky Khandelwal</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">5/7/2026</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Safeswim.ai Application Development</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;"></td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Safeswim Application Development Scrum Call – Weekly Progress</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">1.5</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">True</td>
+<td style="padding:10px 14px;text-align:center;border:1px solid #e5e7eb;background:#f8faff;">
+<select id="r3" onchange="styleSelect(this)" style="width:140px;padding:7px 10px;border:1.5px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:Segoe UI,Arial,sans-serif;cursor:pointer;background:#fff;color:#374151;">
+<option value="">— Select —</option>
+<option value="Accepted">✓ Accept</option>
+<option value="Rejected">✗ Reject</option>
+</select>
+</td>
+</tr>
+
+<!-- ROW 4 -->
+<tr style="background:#f9fafb;" onmouseover="this.style.background='#f0f5ff'" onmouseout="this.style.background='#f9fafb'">
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Dinky Khandelwal</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">5/8/2026</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Safeswim.ai Application Development</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;"></td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Safeswim.ai – Alert Flow discussion on alert flow estimation</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">3</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">True</td>
+<td style="padding:10px 14px;text-align:center;border:1px solid #e5e7eb;background:#f0f5ff;">
+<select id="r4" onchange="styleSelect(this)" style="width:140px;padding:7px 10px;border:1.5px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:Segoe UI,Arial,sans-serif;cursor:pointer;background:#fff;color:#374151;">
+<option value="">— Select —</option>
+<option value="Accepted">✓ Accept</option>
+<option value="Rejected">✗ Reject</option>
+</select>
+</td>
+</tr>
+
+<!-- ROW 5 -->
+<tr style="background:#ffffff;" onmouseover="this.style.background='#f8faff'" onmouseout="this.style.background='#ffffff'">
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Dinky Khandelwal</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">5/8/2026</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Safeswim.ai Application Development</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;"></td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Safeswim Application Development Scrum Call and team coordination</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">3</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">True</td>
+<td style="padding:10px 14px;text-align:center;border:1px solid #e5e7eb;background:#f8faff;">
+<select id="r5" onchange="styleSelect(this)" style="width:140px;padding:7px 10px;border:1.5px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:Segoe UI,Arial,sans-serif;cursor:pointer;background:#fff;color:#374151;">
+<option value="">— Select —</option>
+<option value="Accepted">✓ Accept</option>
+<option value="Rejected">✗ Reject</option>
+</select>
+</td>
+</tr>
+
+<!-- ROW 6 -->
+<tr style="background:#f9fafb;" onmouseover="this.style.background='#f0f5ff'" onmouseout="this.style.background='#f9fafb'">
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Dinky Khandelwal</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">5/8/2026</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Sales and Marketing</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;"></td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">Review of Demo's with Himanshu</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">1</td>
+<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">True</td>
+<td style="padding:10px 14px;text-align:center;border:1px solid #e5e7eb;background:#f0f5ff;">
+<select id="r6" onchange="styleSelect(this)" style="width:140px;padding:7px 10px;border:1.5px solid #cbd5e1;border-radius:6px;font-size:13px;font-family:Segoe UI,Arial,sans-serif;cursor:pointer;background:#fff;color:#374151;">
+<option value="">— Select —</option>
+<option value="Accepted">✓ Accept</option>
+<option value="Rejected">✗ Reject</option>
+</select>
+</td>
+</tr>
+
+<!-- TOTAL ROW -->
+<tr style="background:#1F4E79;">
+<td style="padding:14px;color:#ffffff;font-weight:700;font-size:14px;border:1px solid #315f8a;" colspan="5">Total Hours for the Week</td>
+<td style="padding:14px;color:#ffffff;font-weight:700;font-size:14px;text-align:center;border:1px solid #315f8a;">16.5</td>
+<td style="padding:14px;border:1px solid #315f8a;"></td>
+<td style="padding:14px;border:1px solid #315f8a;"></td>
+</tr>
+</tbody>
+</table>
+
+<!-- SUBMIT BUTTON -->
+<div style="margin-top:24px;text-align:center;">
+  <button onclick="submitReview()" id="submitBtn"
+    style="background:#1F4E79;color:#ffffff;border:none;padding:14px 48px;font-size:15px;font-weight:600;border-radius:8px;cursor:pointer;font-family:Segoe UI,Arial,sans-serif;letter-spacing:0.3px;">
+    Submit Review &amp; Notify Employee
+  </button>
+  <p style="margin-top:10px;font-size:12px;color:#9ca3af;">
+    This will automatically send a notification email to Dinky Khandelwal
+  </p>
+</div>
+
+<!-- SUCCESS MESSAGE -->
+<div id="successMsg" style="display:none;margin-top:20px;padding:16px 20px;background:#f0fdf4;border:1px solid #86efac;border-radius:8px;text-align:center;">
+  <p style="margin:0;font-size:15px;color:#166534;font-weight:600;">✓ Review submitted! Dinky Khandelwal has been notified automatically.</p>
+</div>
+
+<!-- ERROR MESSAGE -->
+<div id="errorMsg" style="display:none;margin-top:20px;padding:16px 20px;background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;text-align:center;">
+  <p style="margin:0;font-size:15px;color:#991b1b;font-weight:600;" id="errorText">❌ Something went wrong. Please try again.</p>
+</div>
+
+<p style="margin-top:24px;font-size:13px;color:#6b7280;line-height:1.6;">
+This report is automatically generated and delivered via Power Automate.
+</p>
+</td>
+</tr>
+
+<!-- FOOTER -->
+<tr>
+<td style="background:#f9fafb;padding:18px 30px;border-top:1px solid #e5e7eb;">
+<table width="100%"><tr>
+<td style="font-size:12px;color:#9ca3af;">Powered by Power BI &amp; Power Automate</td>
+<td align="right" style="font-size:12px;color:#9ca3af;">Ignatiuz Internal Report</td>
+</tr></table>
+</td>
+</tr>
+
+</table>
+</td>
+</tr>
+</table>
+
+<script>
+
+  // ── YOUR POWER AUTOMATE URL ──
+  var FLOW_URL = "https://defaultc7f306b045e44542b7f1661d718b52.33.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/16d0722e118b4c21b3551aa7da214551/triggers/manual/paths/invoke?api-version=1";
+
+  var tasks = [
+    { id:'r1', date:'5/7/2026', project:'Sales and Marketing',                task:'Fully Updated Philly 8th May deck as per the feedbacks and other changes',                                hours:3   },
+    { id:'r2', date:'5/7/2026', project:'Sales and Marketing',                task:"Created demo's for all three Scenarios shared by Himanshu on Azure MS Foundry along with Telemetry and SK", hours:5   },
+    { id:'r3', date:'5/7/2026', project:'Safeswim.ai Application Development',task:'Safeswim Application Development Scrum Call - Weekly Progress',                                            hours:1.5 },
+    { id:'r4', date:'5/8/2026', project:'Safeswim.ai Application Development',task:'Safeswim.ai - Alert Flow discussion on alert flow estimation',                                              hours:3   },
+    { id:'r5', date:'5/8/2026', project:'Safeswim.ai Application Development',task:'Safeswim Application Development Scrum Call and team coordination',                                        hours:3   },
+    { id:'r6', date:'5/8/2026', project:'Sales and Marketing',                task:"Review of Demo's with Himanshu",                                                                           hours:1   }
+  ];
+
+  function styleSelect(sel) {
+    if (sel.value === 'Accepted') {
+      sel.style.background  = '#f0fdf4';
+      sel.style.borderColor = '#16a34a';
+      sel.style.color       = '#166534';
+    } else if (sel.value === 'Rejected') {
+      sel.style.background  = '#fef2f2';
+      sel.style.borderColor = '#dc2626';
+      sel.style.color       = '#991b1b';
+    } else {
+      sel.style.background  = '#fff';
+      sel.style.borderColor = '#cbd5e1';
+      sel.style.color       = '#374151';
+    }
+  }
+
+  async function submitReview() {
+
+    // Collect all decisions
+    var accepted = [], rejected = [], pending = [];
+    var taskData = [];
+
+    tasks.forEach(function(t) {
+      var v = document.getElementById(t.id).value;
+      var entry = {
+        date:    t.date,
+        project: t.project,
+        task:    t.task,
+        hours:   t.hours,
+        status:  v || 'Pending'
+      };
+      taskData.push(entry);
+      if      (v === 'Accepted') accepted.push(entry);
+      else if (v === 'Rejected') rejected.push(entry);
+      else                       pending.push(entry);
+    });
+
+    // Build payload
+    var payload = {
+      employee_email: "dinky.khandelwal@ignatiuz.com",
+      employee_name:  "Dinky Khandelwal",
+      reviewer:       "Ankit Maheshwari",
+      week:           "May 5-9, 2026",
+      tasks:          taskData,
+      summary: {
+        accepted: accepted.length,
+        rejected: rejected.length,
+        pending:  pending.length
+      }
+    };
+
+    // Update button UI
+    var btn = document.getElementById('submitBtn');
+    btn.textContent      = 'Submitting...';
+    btn.disabled         = true;
+    btn.style.background = '#6b7280';
+    document.getElementById('errorMsg').style.display   = 'none';
+    document.getElementById('successMsg').style.display = 'none';
+
+    try {
+      var response = await fetch(FLOW_URL, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload)
+      });
+
+      if (response.ok || response.status === 202) {
+        // Success
+        btn.style.background = '#166534';
+        btn.textContent      = '✓ Submitted — Dinky Notified';
+        document.getElementById('successMsg').style.display = 'block';
+        // Lock all dropdowns
+        tasks.forEach(function(t) {
+          document.getElementById(t.id).disabled = true;
+        });
+      } else {
+        throw new Error('Server responded with status ' + response.status);
+      }
+
+    } catch (err) {
+      // Error
+      btn.style.background = '#dc2626';
+      btn.textContent      = '✗ Failed — Try Again';
+      btn.disabled         = false;
+      document.getElementById('errorText').textContent = '❌ Error: ' + err.message + '. Check CORS settings in Power Automate.';
+      document.getElementById('errorMsg').style.display = 'block';
+    }
+  }
+</script>
+</body>
+</html>
