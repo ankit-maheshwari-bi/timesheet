@@ -74,7 +74,7 @@ Weekly Productivity Snapshot — Manager Review Required
 <tfoot>
 <tr style="background:#1F4E79;">
   <td colspan="5" style="padding:14px;color:#fff;font-weight:700;font-size:14px;border:1px solid #315f8a;">Total Hours for the Week</td>
-  <td style="padding:14px;color:#fff;font-weight:700;font-size:15px;text-align:center;border:1px solid #315f8a;">@{triggerBody()?['summary']?['totalHours']}</td>
+  <td id="totalCell" style="padding:14px;color:#fff;font-weight:700;font-size:15px;text-align:center;border:1px solid #315f8a;"></td>
   <td colspan="2" style="padding:14px;border:1px solid #315f8a;"></td>
 </tr>
 </tfoot>
@@ -123,11 +123,11 @@ This report is automatically generated and delivered via Power Automate.
 <script>
   var FLOW_URL = "https://defaultc7f306b045e44542b7f1661d718b52.33.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/16d0722e118b4c21b3551aa7da214551/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m_kZ5wbYJAKKJfhedo12Rn9QRSuEPqbEFXxjqZUNN8U";
 
-  document.getElementById('greeting').textContent = 'Hi ' + reviewer + ',';
-  document.getElementById('weekLine').innerHTML   = 'Your timesheet for <strong>' + weekLabel + '</strong> has been submitted by <strong>' + employeeName + '</strong>.';
+  document.getElementById('greeting').textContent  = 'Hi ' + reviewer + ',';
+  document.getElementById('weekLine').innerHTML    = 'Your timesheet for <strong>' + weekLabel + '</strong> has been submitted by <strong>' + employeeName + '</strong>.';
   document.getElementById('empLabel').textContent  = employeeName;
   document.getElementById('empLabel2').textContent = employeeName;
-  document.getElementById('totalCell').textContent = totalHours;
+  document.getElementById('totalCell').textContent = totalHours;  // ← JS sets this, NOT PA expression
 
   var tbody = document.getElementById('taskRows');
   if (tasks.length === 0) {
@@ -176,7 +176,6 @@ This report is automatically generated and delivered via Power Automate.
       else                       pending.push(entry);
     });
 
-    // Calculate actual hours per status
     var acceptedHours = accepted.reduce(function(s, t) { return s + t.hours; }, 0);
     var rejectedHours = rejected.reduce(function(s, t) { return s + t.hours; }, 0);
     var pendingHours  = pending.reduce(function(s, t)  { return s + t.hours; }, 0);
