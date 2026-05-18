@@ -44,7 +44,6 @@ while(getParam('t' + i)) {
 <!-- BODY -->
 <tr><td style="padding:30px;">
 
-<!-- FIX 1: greeting shows reviewer, week label shown clearly -->
 <p id="greeting" style="margin:0 0 6px;font-size:15px;color:#374151;"></p>
 <p id="weekLine" style="margin:0 0 20px;font-size:15px;color:#374151;"></p>
 
@@ -58,7 +57,6 @@ Weekly Productivity Snapshot — Manager Review Required
 </td></tr>
 </table>
 
-<!-- FIX 2: total row is now INSIDE this table as tfoot — columns align perfectly -->
 <table id="mainTable" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #d1d5db;">
 <thead>
 <tr style="background:#1F4E79;">
@@ -73,12 +71,9 @@ Weekly Productivity Snapshot — Manager Review Required
 </tr>
 </thead>
 <tbody id="taskRows"></tbody>
-
-<!-- FIX 2: tfoot keeps total row inside main table — Hours column aligns perfectly -->
-<tfoot id="totalFoot">
+<tfoot>
 <tr style="background:#1F4E79;">
   <td colspan="5" style="padding:14px;color:#fff;font-weight:700;font-size:14px;border:1px solid #315f8a;">Total Hours for the Week</td>
-  <!-- This td lines up with the Hours column (col 6) -->
   <td id="totalCell" style="padding:14px;color:#fff;font-weight:700;font-size:15px;text-align:center;border:1px solid #315f8a;"></td>
   <td colspan="2" style="padding:14px;border:1px solid #315f8a;"></td>
 </tr>
@@ -128,16 +123,12 @@ This report is automatically generated and delivered via Power Automate.
 <script>
   var FLOW_URL = "https://defaultc7f306b045e44542b7f1661d718b52.33.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/16d0722e118b4c21b3551aa7da214551/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m_kZ5wbYJAKKJfhedo12Rn9QRSuEPqbEFXxjqZUNN8U";
 
-  // FIX 1 — show reviewer name in greeting, show employee + week in second line
   document.getElementById('greeting').textContent = 'Hi ' + reviewer + ',';
   document.getElementById('weekLine').innerHTML   = 'Your timesheet for <strong>' + weekLabel + '</strong> has been submitted by <strong>' + employeeName + '</strong>.';
   document.getElementById('empLabel').textContent  = employeeName;
   document.getElementById('empLabel2').textContent = employeeName;
-
-  // FIX 2 — total hours placed directly in the tfoot cell (aligns with Hours column)
   document.getElementById('totalCell').textContent = totalHours;
 
-  // Build rows
   var tbody = document.getElementById('taskRows');
   if (tasks.length === 0) {
     tbody.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#999;font-size:13px;">No tasks found. Please check the URL parameters.</td></tr>';
@@ -169,14 +160,26 @@ This report is automatically generated and delivered via Power Automate.
 
   async function submitReview() {
     var accepted=[], rejected=[], pending=[], taskData=[];
+
     tasks.forEach(function(t) {
-      var v   = document.getElementById(t.id) ? document.getElementById(t.id).value : '';
-      var entry = { date: t.date, project: t.project, task: t.task, hours: parseFloat(t.hours) || 0, status: v || 'Pending' };
+      var v = document.getElementById(t.id) ? document.getElementById(t.id).value : '';
+      var entry = {
+        date:    t.date,
+        project: t.project,
+        task:    t.task,
+        hours:   parseFloat(t.hours) || 0,
+        status:  v || 'Pending'
+      };
       taskData.push(entry);
-      if      (v==='Accepted') accepted.push(entry);
-      else if (v==='Rejected') rejected.push(entry);
-      else                     pending.push(entry);
+      if      (v === 'Accepted') accepted.push(entry);
+      else if (v === 'Rejected') rejected.push(entry);
+      else                       pending.push(entry);
     });
+
+    // Calculate actual hours per status
+    var acceptedHours = accepted.reduce(function(s, t) { return s + t.hours; }, 0);
+    var rejectedHours = rejected.reduce(function(s, t) { return s + t.hours; }, 0);
+    var pendingHours  = pending.reduce(function(s, t)  { return s + t.hours; }, 0);
 
     var payload = {
       employee_email: employeeEmail,
@@ -184,30 +187,40 @@ This report is automatically generated and delivered via Power Automate.
       reviewer:       reviewer,
       week:           weekLabel,
       tasks:          taskData,
-      summary: { accepted:accepted.length, rejected:rejected.length, pending:pending.length }
+      summary: {
+        accepted:      accepted.length,
+        rejected:      rejected.length,
+        pending:       pending.length,
+        acceptedHours: acceptedHours,
+        rejectedHours: rejectedHours,
+        pendingHours:  pendingHours,
+        totalHours:    parseFloat(totalHours) || 0
+      }
     };
 
     var btn = document.getElementById('submitBtn');
-    btn.textContent='Submitting...'; btn.disabled=true; btn.style.background='#6b7280';
-    document.getElementById('errorMsg').style.display='none';
-    document.getElementById('successMsg').style.display='none';
+    btn.textContent = 'Submitting...'; btn.disabled = true; btn.style.background = '#6b7280';
+    document.getElementById('errorMsg').style.display  = 'none';
+    document.getElementById('successMsg').style.display = 'none';
 
     try {
       var res = await fetch(FLOW_URL, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body:JSON.stringify(payload)
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload)
       });
-      if (res.ok || res.status===202) {
-        btn.style.background='#166534';
-        btn.textContent='✓ Submitted — ' + employeeName + ' Notified';
-        document.getElementById('successMsg').style.display='block';
-        tasks.forEach(function(t){ if(document.getElementById(t.id)) document.getElementById(t.id).disabled=true; });
+      if (res.ok || res.status === 202) {
+        btn.style.background = '#166534';
+        btn.textContent = '✓ Submitted — ' + employeeName + ' Notified';
+        document.getElementById('successMsg').style.display = 'block';
+        tasks.forEach(function(t) {
+          if (document.getElementById(t.id)) document.getElementById(t.id).disabled = true;
+        });
       } else { throw new Error('Status ' + res.status); }
     } catch(e) {
-      btn.style.background='#dc2626'; btn.textContent='✗ Failed — Try Again'; btn.disabled=false;
-      document.getElementById('errorText').textContent='❌ Error: ' + e.message;
-      document.getElementById('errorMsg').style.display='block';
+      btn.style.background = '#dc2626'; btn.textContent = '✗ Failed — Try Again'; btn.disabled = false;
+      document.getElementById('errorText').textContent = '❌ Error: ' + e.message;
+      document.getElementById('errorMsg').style.display = 'block';
     }
   }
 </script>
