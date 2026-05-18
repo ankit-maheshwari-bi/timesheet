@@ -20,6 +20,7 @@ while(getParam('t' + i)) {
     id:      'r' + i,
     date:    getParam('d' + i),
     project: getParam('p' + i),
+    role:    getParam('ro' + i) || '',
     task:    getParam('t' + i),
     hours:   getParam('h' + i),
     billable:getParam('b' + i) || 'True'
@@ -35,15 +36,18 @@ while(getParam('t' + i)) {
 <!-- HEADER -->
 <tr>
 <td style="background:#1F4E79;padding:24px 32px;">
-<h2 style="margin:0;color:#ffffff;font-size:26px;font-weight:600;">Weekly Timesheet Summary</h2>
-<p style="margin:8px 0 0;color:#dbe7f3;font-size:14px;">Automated Weekly Employee Timesheet Report</p>
+  <h2 style="margin:0;color:#ffffff;font-size:26px;font-weight:600;">Weekly Timesheet Summary</h2>
+  <p style="margin:8px 0 0;color:#dbe7f3;font-size:14px;">Automated Weekly Employee Timesheet Report</p>
 </td>
 </tr>
 
 <!-- BODY -->
 <tr><td style="padding:30px;">
 
-<p id="greeting" style="margin:0 0 14px;font-size:15px;color:#374151;"></p>
+<!-- FIX 1: greeting shows reviewer, week label shown clearly -->
+<p id="greeting" style="margin:0 0 6px;font-size:15px;color:#374151;"></p>
+<p id="weekLine" style="margin:0 0 20px;font-size:15px;color:#374151;"></p>
+
 <p style="margin:0 0 24px;font-size:15px;line-height:1.6;color:#4b5563;">
 Please find below the weekly timesheet summary. Please review each task and select your approval decision, then click <strong>Submit Review</strong>.
 </p>
@@ -54,23 +58,32 @@ Weekly Productivity Snapshot — Manager Review Required
 </td></tr>
 </table>
 
-<!-- DATA TABLE -->
-<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #d1d5db;">
+<!-- FIX 2: total row is now INSIDE this table as tfoot — columns align perfectly -->
+<table id="mainTable" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;border:1px solid #d1d5db;">
 <thead>
 <tr style="background:#1F4E79;">
-<th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;">Employee Name</th>
-<th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;">Date</th>
-<th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;">Project Name</th>
-<th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;">Role</th>
-<th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;">Task Description</th>
-<th style="padding:14px;color:#fff;text-align:center;font-size:14px;border:1px solid #315f8a;">Hours</th>
-<th style="padding:14px;color:#fff;text-align:center;font-size:14px;border:1px solid #315f8a;">Billable</th>
-<th style="padding:14px;color:#fff;text-align:center;font-size:14px;border:1px solid #315f8a;background:#2563a8;min-width:160px;">Manager Review</th>
+  <th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;width:140px;">Employee Name</th>
+  <th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;width:90px;">Date</th>
+  <th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;width:130px;">Project Name</th>
+  <th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;width:100px;">Role</th>
+  <th style="padding:14px;color:#fff;text-align:left;font-size:14px;border:1px solid #315f8a;">Task Description</th>
+  <th style="padding:14px;color:#fff;text-align:center;font-size:14px;border:1px solid #315f8a;width:70px;">Hours</th>
+  <th style="padding:14px;color:#fff;text-align:center;font-size:14px;border:1px solid #315f8a;width:80px;">Billable</th>
+  <th style="padding:14px;color:#fff;text-align:center;font-size:14px;border:1px solid #315f8a;background:#2563a8;width:160px;">Manager Review</th>
 </tr>
 </thead>
 <tbody id="taskRows"></tbody>
+
+<!-- FIX 2: tfoot keeps total row inside main table — Hours column aligns perfectly -->
+<tfoot id="totalFoot">
+<tr style="background:#1F4E79;">
+  <td colspan="5" style="padding:14px;color:#fff;font-weight:700;font-size:14px;border:1px solid #315f8a;">Total Hours for the Week</td>
+  <!-- This td lines up with the Hours column (col 6) -->
+  <td id="totalCell" style="padding:14px;color:#fff;font-weight:700;font-size:15px;text-align:center;border:1px solid #315f8a;"></td>
+  <td colspan="2" style="padding:14px;border:1px solid #315f8a;"></td>
+</tr>
+</tfoot>
 </table>
-<div id="totalRow"></div>
 
 <!-- SUBMIT -->
 <div style="margin-top:24px;text-align:center;">
@@ -102,8 +115,8 @@ This report is automatically generated and delivered via Power Automate.
 <tr>
 <td style="background:#f9fafb;padding:18px 30px;border-top:1px solid #e5e7eb;">
 <table width="100%"><tr>
-<td style="font-size:12px;color:#9ca3af;">Powered by Power BI &amp; Power Automate</td>
-<td align="right" style="font-size:12px;color:#9ca3af;">Ignatiuz Internal Report</td>
+  <td style="font-size:12px;color:#9ca3af;">Powered by Power BI &amp; Power Automate</td>
+  <td align="right" style="font-size:12px;color:#9ca3af;">Ignatiuz Internal Report</td>
 </tr></table>
 </td>
 </tr>
@@ -115,10 +128,14 @@ This report is automatically generated and delivered via Power Automate.
 <script>
   var FLOW_URL = "https://defaultc7f306b045e44542b7f1661d718b52.33.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/16d0722e118b4c21b3551aa7da214551/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m_kZ5wbYJAKKJfhedo12Rn9QRSuEPqbEFXxjqZUNN8U";
 
-  // Set labels
-  document.getElementById('greeting').textContent  = 'Hi ' + reviewer + ',';
+  // FIX 1 — show reviewer name in greeting, show employee + week in second line
+  document.getElementById('greeting').textContent = 'Hi ' + reviewer + ',';
+  document.getElementById('weekLine').innerHTML   = 'Your timesheet for <strong>' + weekLabel + '</strong> has been submitted by <strong>' + employeeName + '</strong>.';
   document.getElementById('empLabel').textContent  = employeeName;
   document.getElementById('empLabel2').textContent = employeeName;
+
+  // FIX 2 — total hours placed directly in the tfoot cell (aligns with Hours column)
+  document.getElementById('totalCell').textContent = totalHours;
 
   // Build rows
   var tbody = document.getElementById('taskRows');
@@ -131,7 +148,7 @@ This report is automatically generated and delivered via Power Automate.
         + '<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">' + employeeName + '</td>'
         + '<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">' + t.date + '</td>'
         + '<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">' + t.project + '</td>'
-        + '<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;"></td>'
+        + '<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">' + t.role + '</td>'
         + '<td style="padding:13px 14px;font-size:13px;color:#374151;border:1px solid #e5e7eb;">' + t.task + '</td>'
         + '<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">' + t.hours + '</td>'
         + '<td style="padding:13px 14px;font-size:13px;color:#374151;text-align:center;border:1px solid #e5e7eb;">' + t.billable + '</td>'
@@ -143,15 +160,6 @@ This report is automatically generated and delivered via Power Automate.
         + '</select></td></tr>';
     });
   }
-
-  // Total row
-  document.getElementById('totalRow').innerHTML =
-    '<table width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse;">'
-    + '<tr style="background:#1F4E79;">'
-    + '<td colspan="5" style="padding:14px;color:#fff;font-weight:700;font-size:14px;border:1px solid #315f8a;">Total Hours for the Week</td>'
-    + '<td style="padding:14px;color:#fff;font-weight:700;font-size:14px;text-align:center;border:1px solid #315f8a;">' + totalHours + '</td>'
-    + '<td colspan="2" style="padding:14px;border:1px solid #315f8a;"></td>'
-    + '</tr></table>';
 
   function styleSelect(sel) {
     if      (sel.value === 'Accepted') { sel.style.background='#f0fdf4'; sel.style.borderColor='#16a34a'; sel.style.color='#166534'; }
