@@ -7,11 +7,12 @@ function getParam(name) {
   return decodeURIComponent(new URLSearchParams(window.location.search).get(name) || '');
 }
 
-var employeeName  = getParam('employee') || 'Employee';
-var employeeEmail = getParam('email')    || '';
-var weekLabel     = getParam('week')     || '';
-var totalHours    = getParam('total')    || '0';
-var reviewer      = getParam('reviewer') || 'Manager';
+// STATIC — hardcoded names
+var employeeName  = 'Zach Ludlow';
+var employeeEmail = getParam('email') || '';
+var weekLabel     = getParam('week')  || '';
+var totalHours    = getParam('total') || '0';
+var reviewer      = 'Deepti';
 
 var tasks = [];
 var i = 1;
@@ -123,15 +124,21 @@ This report is automatically generated and delivered via Power Automate.
 <script>
   var FLOW_URL = "https://defaultc7f306b045e44542b7f1661d718b52.33.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/16d0722e118b4c21b3551aa7da214551/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=m_kZ5wbYJAKKJfhedo12Rn9QRSuEPqbEFXxjqZUNN8U";
 
+  // Static names applied
   document.getElementById('greeting').textContent  = 'Hi ' + reviewer + ',';
   document.getElementById('weekLine').innerHTML    = 'Your timesheet for <strong>' + weekLabel + '</strong> has been submitted by <strong>' + employeeName + '</strong>.';
   document.getElementById('empLabel').textContent  = employeeName;
   document.getElementById('empLabel2').textContent = employeeName;
-  document.getElementById('totalCell').textContent = totalHours;  // ← JS sets this, NOT PA expression
+  document.getElementById('totalCell').textContent = totalHours;
 
   var tbody = document.getElementById('taskRows');
   if (tasks.length === 0) {
-    tbody.innerHTML = '<tr><td colspan="8" style="padding:20px;text-align:center;color:#999;font-size:13px;">No tasks found. Please check the URL parameters.</td></tr>';
+    var weekText = weekLabel ? weekLabel : 'this week';
+    tbody.innerHTML = '<tr><td colspan="8" style="padding:50px 20px;text-align:center;">'
+      + '<div style="font-size:42px;margin-bottom:14px;">📋</div>'
+      + '<div style="font-size:16px;font-weight:600;color:#374151;margin-bottom:8px;">No timesheet entries found</div>'
+      + '<div style="font-size:13px;color:#9ca3af;">Zach Ludlow has no logged hours for <strong style="color:#6b7280;">' + weekText + '</strong></div>'
+      + '</td></tr>';
   } else {
     tasks.forEach(function(t, idx) {
       var bg = idx % 2 === 0 ? '#ffffff' : '#f9fafb';
